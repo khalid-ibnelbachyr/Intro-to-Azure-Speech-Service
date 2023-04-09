@@ -20,28 +20,21 @@ export default function TextToSpeech() {
 
     const audioConfig = AudioConfig.fromDefaultSpeakerOutput();
     const speechSynthesizer = new SpeechSynthesizer(speechConfig, audioConfig);
-    speechSynthesizer.speakTextAsync(
-      inputBox.current.value,
-      (result) => {
-        if (result) {
-          speechSynthesizer.close();
-          return result.audioData;
-        }
-      },
-      (error) => {
-        console.log(error);
+    speechSynthesizer.speakTextAsync(inputBox.current.value, (result) => {
+      if (result) {
         speechSynthesizer.close();
+        return result.audioData;
       }
-    );
+    });
   };
 
   return (
-    <div className="w-full px-10">
+    <div className="w-full px-10 py-5">
       <h2>Text To Speech</h2>
       <textarea className="textarea w-full" ref={inputBox} />
       <br />
-      <button className="btn" onClick={synthesize}>
-        Synthesize{" "}
+      <button className="btn btn-accent mt-3" onClick={synthesize}>
+        Synthesize Speech
       </button>
     </div>
   );

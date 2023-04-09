@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   SpeechConfig,
   AudioConfig,
   SpeechRecognizer,
   ResultReason,
-  CancellationReason,
 } from "microsoft-cognitiveservices-speech-sdk";
 
 const speechConfig = SpeechConfig.fromSubscription(
@@ -19,36 +18,10 @@ export default function SpeechToText() {
   const [transcript, setTranscript] = useState("");
 
   const startRecording = () => {
-    speechRecognizer.recognizing = (s, e) => {
-      console.log(`RECOGNIZING: Text=${e.result.text}`);
-    };
-
     speechRecognizer.recognized = (s, e) => {
       if (e.result.reason == ResultReason.RecognizedSpeech) {
-        console.log(`RECOGNIZED: Text=${e.result.text}`);
-        setTranscript((prev) => prev + e.result.text);
-      } else if (e.result.reason == ResultReason.NoMatch) {
-        console.log("NOMATCH: Speech could not be recognized.");
+        setTranscript((prev) => prev + " " + e.result.text);
       }
-    };
-
-    speechRecognizer.canceled = (s, e) => {
-      console.log(`CANCELED: Reason=${e.reason}`);
-
-      if (e.reason == CancellationReason.Error) {
-        console.log(`"CANCELED: ErrorCode=${e.errorCode}`);
-        console.log(`"CANCELED: ErrorDetails=${e.errorDetails}`);
-        console.log(
-          "CANCELED: Did you set the speech resource key and region values?"
-        );
-      }
-
-      speechRecognizer.stopContinuousRecognitionAsync();
-    };
-
-    speechRecognizer.sessionStopped = (s, e) => {
-      console.log("\n    Session stopped event.");
-      speechRecognizer.stopContinuousRecognitionAsync();
     };
 
     setIsRecording(true);
@@ -65,7 +38,7 @@ export default function SpeechToText() {
   };
 
   return (
-    <div className="">
+    <div className="w-full px-10 py-5">
       <h2 className="text-2xl font-semibold">Speech To Text</h2>
       {!isRecording ? (
         <button className="btn btn-primary" onClick={startRecording}>
@@ -83,7 +56,7 @@ export default function SpeechToText() {
       <div className="w-full">
         <h3>Transcript:</h3>
         <div className="chat chat-start">
-          <div className="chat-bubble">{transcript}</div>
+          <div className="chat-bubble chat-bubble-accent">{transcript}</div>
         </div>
       </div>
     </div>
