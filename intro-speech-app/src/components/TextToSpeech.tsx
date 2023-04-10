@@ -1,25 +1,30 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   SpeechConfig,
   SpeechSynthesizer,
   AudioConfig,
 } from "microsoft-cognitiveservices-speech-sdk";
+import { SpeechOptions } from "../App";
 
-const speechConfig = SpeechConfig.fromSubscription(
-  "0eb065722ee542248125bce0c6b40600",
-  "westeurope"
-);
-speechConfig.speechSynthesisLanguage = "en-US";
-speechConfig.speechSynthesisVoiceName = "en-US-JennyNeural";
+interface TextToSpeechProps {
+  speechOptions: SpeechOptions;
+}
 
-export default function TextToSpeech() {
+export default function TextToSpeech({ speechOptions }: TextToSpeechProps) {
   const inputBox = useRef<HTMLTextAreaElement>(null);
 
   const synthesize = () => {
     if (!inputBox.current) return;
 
+    const speechConfig = SpeechConfig.fromAuthorizationToken(
+      speechOptions.speechKey,
+      speechOptions.speechRegion
+    );
+    speechConfig.speechSynthesisLanguage = "en-US";
+    speechConfig.speechSynthesisVoiceName = "en-US-JennyNeural";
     const audioConfig = AudioConfig.fromDefaultSpeakerOutput();
     const speechSynthesizer = new SpeechSynthesizer(speechConfig, audioConfig);
+
     speechSynthesizer.speakTextAsync(inputBox.current.value, (result) => {
       if (result) {
         speechSynthesizer.close();

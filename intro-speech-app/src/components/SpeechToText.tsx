@@ -5,32 +5,39 @@ import {
   SpeechRecognizer,
   ResultReason,
 } from "microsoft-cognitiveservices-speech-sdk";
+import { SpeechOptions } from "../App";
 
-const speechConfig = SpeechConfig.fromSubscription(
-  "0eb065722ee542248125bce0c6b40600",
-  "westeurope"
-);
-const audioConfig = AudioConfig.fromDefaultMicrophoneInput();
-const speechRecognizer = new SpeechRecognizer(speechConfig, audioConfig);
+interface SpeechToTextProps {
+  speechOptions: SpeechOptions;
+}
 
-export default function SpeechToText() {
+export default function SpeechToText({ speechOptions }: SpeechToTextProps) {
+  const [speechRecognizer, setSpeechRecognizer] = useState<SpeechRecognizer>();
   const [isRecording, setIsRecording] = useState(false);
   const [transcript, setTranscript] = useState("");
 
   const startRecording = () => {
+    const speechConfig = SpeechConfig.fromAuthorizationToken(
+      speechOptions.speechKey,
+      speechOptions.speechRegion
+    );
+    const audioConfig = AudioConfig.fromDefaultMicrophoneInput();
+    const speechRecognizer = new SpeechRecognizer(speechConfig, audioConfig);
     speechRecognizer.recognized = (s, e) => {
       if (e.result.reason == ResultReason.RecognizedSpeech) {
         setTranscript((prev) => prev + " " + e.result.text);
       }
     };
-
+    setSpeechRecognizer(speechRecognizer);
     setIsRecording(true);
     speechRecognizer.startContinuousRecognitionAsync();
   };
 
   const stopRecording = () => {
-    setIsRecording(false);
-    speechRecognizer.stopContinuousRecognitionAsync();
+    if (speechRecognizer) {
+      setIsRecording(false);
+      speechRecognizer.stopContinuousRecognitionAsync();
+    }
   };
 
   const clearTranscript = () => {
