@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import {
   SpeechConfig,
   SpeechSynthesizer,

@@ -17,7 +17,7 @@ const App = () => {
     const domain =
       import.meta.env.MODE === "development"
         ? "http://localhost:7071"
-        : "https://mango-meadow-0ef60e903.2.azurestaticapps.net/";
+        : "https://mango-meadow-0ef60e903.2.azurestaticapps.net";
 
     fetch(`${domain}/api/tokenHandler`)
       .then((res) => res.json())
