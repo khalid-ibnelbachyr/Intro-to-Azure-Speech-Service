@@ -31,7 +31,7 @@ const App = () => {
     // top level await to fetch speech configs
     (async function () {
       const { token, region } = await (
-        await fetch(`http://localhost:7071/api/getSpeechConfigs`)
+        await fetch(`/api/getSpeechConfigs`)
       ).json();
       setSpeechOptions({ speechKey: token, speechRegion: region });
     })();
