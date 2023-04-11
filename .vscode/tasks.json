@@ -9,35 +9,35 @@
       "isBackground": true,
       "dependsOn": "npm build (functions)",
       "options": {
-        "cwd": "${workspaceFolder}/api"
+        "cwd": "${workspaceFolder}/intro-speech-app/api"
       }
     },
     {
       "type": "shell",
-      "label": "npm build (functions)",
+      "label": "pnpm build (functions)",
       "command": "npm run build",
       "dependsOn": "npm install (functions)",
       "problemMatcher": "$tsc",
       "options": {
-        "cwd": "${workspaceFolder}/api"
+        "cwd": "${workspaceFolder}/intro-speech-app/api"
       }
     },
     {
       "type": "shell",
-      "label": "npm install (functions)",
+      "label": "pnpm install (functions)",
       "command": "npm install",
       "options": {
-        "cwd": "${workspaceFolder}/api"
+        "cwd": "${workspaceFolder}/intro-speech-app/api"
       }
     },
     {
       "type": "shell",
-      "label": "npm prune (functions)",
+      "label": "pnpm prune (functions)",
       "command": "npm prune --production",
       "dependsOn": "npm build (functions)",
       "problemMatcher": [],
       "options": {
-        "cwd": "${workspaceFolder}/api"
+        "cwd": "${workspaceFolder}/intro-speech-app/api"
       }
     }
   ]

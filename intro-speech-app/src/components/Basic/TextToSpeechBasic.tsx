@@ -4,24 +4,24 @@ import {
   SpeechSynthesizer,
   AudioConfig,
 } from "microsoft-cognitiveservices-speech-sdk";
-import { SpeechOptions } from "../App";
 
-interface TextToSpeechProps {
-  speechOptions: SpeechOptions;
-}
+// Setup configs
+const speechConfig = SpeechConfig.fromSubscription(
+  "0eb065722ee542248125bce0c6b40600",
+  "westeurope"
+);
+speechConfig.speechSynthesisLanguage = "en-US";
+speechConfig.speechSynthesisVoiceName = "en-US-JennyNeural";
 
-export default function TextToSpeech({ speechOptions }: TextToSpeechProps) {
+export default function TextToSpeechBasic() {
   const inputBox = useRef<HTMLTextAreaElement>(null);
 
-  const synthesize = () => {
+  const synthesizeSpeech = () => {
+    // If no text is provided, return
     if (!inputBox.current) return;
 
-    const speechConfig = SpeechConfig.fromAuthorizationToken(
-      speechOptions.speechKey,
-      speechOptions.speechRegion
-    );
-    speechConfig.speechSynthesisLanguage = "en-US";
-    speechConfig.speechSynthesisVoiceName = "en-US-JennyNeural";
+    // Setup synthesizer
+    // Must be new each time
     const audioConfig = AudioConfig.fromDefaultSpeakerOutput();
     const speechSynthesizer = new SpeechSynthesizer(speechConfig, audioConfig);
 
@@ -38,7 +38,7 @@ export default function TextToSpeech({ speechOptions }: TextToSpeechProps) {
       <h2>Text To Speech</h2>
       <textarea className="textarea w-full" ref={inputBox} />
       <br />
-      <button className="btn btn-accent mt-3" onClick={synthesize}>
+      <button className="btn btn-accent mt-3" onClick={synthesizeSpeech}>
         Synthesize Speech
       </button>
     </div>

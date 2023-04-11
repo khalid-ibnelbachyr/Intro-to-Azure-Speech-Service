@@ -1,43 +1,46 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   SpeechConfig,
   AudioConfig,
   SpeechRecognizer,
   ResultReason,
 } from "microsoft-cognitiveservices-speech-sdk";
-import { SpeechOptions } from "../App";
 
-interface SpeechToTextProps {
-  speechOptions: SpeechOptions;
-}
+// Configs
+const speechConfig = SpeechConfig.fromSubscription(
+  "<SUBSCRIPTION_KEY>",
+  "<REGION>"
+);
+const audioConfig = AudioConfig.fromDefaultMicrophoneInput();
+const speechRecognizer = new SpeechRecognizer(speechConfig, audioConfig);
 
-export default function SpeechToText({ speechOptions }: SpeechToTextProps) {
-  const [speechRecognizer, setSpeechRecognizer] = useState<SpeechRecognizer>();
+export default function SpeechToTextBasic() {
   const [isRecording, setIsRecording] = useState(false);
   const [transcript, setTranscript] = useState("");
 
-  const startRecording = () => {
-    const speechConfig = SpeechConfig.fromAuthorizationToken(
-      speechOptions.speechKey,
-      speechOptions.speechRegion
-    );
-    const audioConfig = AudioConfig.fromDefaultMicrophoneInput();
-    const speechRecognizer = new SpeechRecognizer(speechConfig, audioConfig);
+  useEffect(() => {
+    // When component is mounted, setup the recognizer
+
+    // Subscribe to events
     speechRecognizer.recognized = (s, e) => {
       if (e.result.reason == ResultReason.RecognizedSpeech) {
         setTranscript((prev) => prev + " " + e.result.text);
       }
     };
-    setSpeechRecognizer(speechRecognizer);
-    setIsRecording(true);
+  }, []);
+
+  const startRecording = () => {
+    // Start recognition
     speechRecognizer.startContinuousRecognitionAsync();
+
+    setIsRecording(true);
   };
 
   const stopRecording = () => {
-    if (speechRecognizer) {
-      setIsRecording(false);
-      speechRecognizer.stopContinuousRecognitionAsync();
-    }
+    // Stop recognition
+    speechRecognizer.stopContinuousRecognitionAsync();
+    
+    setIsRecording(false);
   };
 
   const clearTranscript = () => {
