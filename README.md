@@ -19,6 +19,8 @@ And also contains the slides and code for this YouTube video:
 This is a template of how you can get started with Azure Speech Services with React.
 It contains a basic frontend interface for Speech to text and Text to speech, and an api backend for getting auth tokens, watch the video for more detailed explanations
 
+App is deployed live here, try it out: [intro-speech-app](https://mango-meadow-0ef60e903.2.azurestaticapps.net/)
+
 ![SpeechInterface](https://user-images.githubusercontent.com/56083944/232786591-1d615ed8-49b0-4591-aa7a-cb5c0a6e6a6f.png)
 
 ### App structure
