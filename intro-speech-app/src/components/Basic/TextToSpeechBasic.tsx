@@ -10,8 +10,8 @@ const speechConfig = SpeechConfig.fromSubscription(
   "0eb065722ee542248125bce0c6b40600",
   "westeurope"
 );
-speechConfig.speechSynthesisLanguage = "en-US";
-speechConfig.speechSynthesisVoiceName = "en-US-JennyNeural";
+speechConfig.speechSynthesisLanguage = "fr-FR";
+speechConfig.speechSynthesisVoiceName = "fr-FR-JeromeNeural";
 
 export default function TextToSpeechBasic() {
   const inputBox = useRef<HTMLTextAreaElement>(null);

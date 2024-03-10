@@ -21,8 +21,8 @@ export default function TextToSpeech({ speechOptions }: TextToSpeechProps) {
       speechOptions.speechKey,
       speechOptions.speechRegion
     );
-    speechConfig.speechSynthesisLanguage = "en-US";
-    speechConfig.speechSynthesisVoiceName = "en-US-JennyNeural";
+    speechConfig.speechSynthesisLanguage = "fr-FR";
+    speechConfig.speechSynthesisVoiceName = "fr-FR-JeromeNeural";
     const audioConfig = AudioConfig.fromDefaultSpeakerOutput();
 
     // Initialize a speech synthesizer
