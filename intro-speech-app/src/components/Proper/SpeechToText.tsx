@@ -32,6 +32,9 @@ export default function SpeechToText({ speechOptions }: SpeechToTextProps) {
       speechOptions.speechKey,
       speechOptions.speechRegion
     );
+    // Set the speech recognition language to French
+    speechConfig.speechRecognitionLanguage = "fr-FR";
+
     const audioConfig = AudioConfig.fromDefaultMicrophoneInput();
     const recognizer = new SpeechRecognizer(speechConfig, audioConfig);
 
