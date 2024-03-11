@@ -81,7 +81,7 @@ export default function SpeechToText({ speechOptions }: SpeechToTextProps) {
   // Render the component UI
   return (
     <div className="w-full px-10 py-5">
-      <h2 className="text-2xl font-semibold">Speech To Text</h2>
+      <h2 className="text-2xl font-semibold">Reconnaissance vocale</h2>
       {!isRecording ? (
         <button className="btn btn-primary" onClick={startRecording}>
           Start Recording

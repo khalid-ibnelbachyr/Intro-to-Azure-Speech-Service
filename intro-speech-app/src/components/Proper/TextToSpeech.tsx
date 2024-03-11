@@ -50,7 +50,7 @@ export default function TextToSpeech({ speechOptions }: TextToSpeechProps) {
   // Render the component UI
   return (
     <div className="w-full px-10 py-5">
-      <h2>Text To Speech</h2>
+      <h2 className="text-2xl font-semibold">Synthèse vocale</h2>
       <textarea className="textarea w-full" ref={inputBox} /> {/* Text input area */}
       <br />
       <button className="btn btn-accent mt-3" onClick={synthesizeSpeech}>

@@ -10,15 +10,28 @@ export type SpeechOptions = {
 };
 
 // The simplest setup
+// const AppBasic = () => {
+//   return (
+//     <main className="flex min-h-screen w-full flex-col justify-between px-4 py-24 mx-auto prose">
+//       <h1 className="text-center">Speech Service</h1>
+//       <SpeechToTextBasic />
+//       <TextToSpeechBasic />
+//     </main>
+//   );
+// };
+
 const AppBasic = () => {
   return (
-    <main className="flex min-h-screen w-full flex-col justify-between px-4 py-24 mx-auto prose">
-      <h1 className="text-center">Intro to Speech Service</h1>
+    <main className="flex min-h-screen w-full flex-col items-center justify-between px-4 py-24 mx-auto prose">
+      {/* Assuming logo.png is in the public folder or an external URL */}
+      <img src="crayon-group-logo-vector.svg" alt="Logo" className="mb-4" />
+      <h1 className="text-center">Speech Service</h1>
       <SpeechToTextBasic />
       <TextToSpeechBasic />
     </main>
   );
 };
+
 
 // The proper setup
 const App = () => {
@@ -39,7 +52,7 @@ const App = () => {
 
   return (
     <main className="flex min-h-screen w-full flex-col justify-between px-4 py-24 mx-auto prose">
-      <h1 className="text-center">Intro to Speech Service</h1>
+      <h1 className="text-center">Speech Service</h1>
       <SpeechToText speechOptions={speechOptions} />
       <TextToSpeech speechOptions={speechOptions} />
     </main>

@@ -12,7 +12,7 @@ And also contains the slides and code for this YouTube video:
 
 [A practical guide to Azure Speech Service](https://www.youtube.com/embed/EjtVUbljNjM)
 
-![intro to speech service thumbnail](https://user-images.githubusercontent.com/56083944/232787347-44eb0639-59f1-4021-85dd-81d1440741af.png)
+![Speech Service thumbnail](https://user-images.githubusercontent.com/56083944/232787347-44eb0639-59f1-4021-85dd-81d1440741af.png)
 
 ### App functionality details
 
