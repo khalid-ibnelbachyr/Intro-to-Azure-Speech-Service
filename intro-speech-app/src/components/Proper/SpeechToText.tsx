@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   SpeechConfig,
   AudioConfig,
@@ -12,46 +12,48 @@ interface SpeechToTextProps {
 }
 
 export default function SpeechToText({ speechOptions }: SpeechToTextProps) {
-  const [speechRecognizer, setSpeechRecognizer] = useState<SpeechRecognizer>();
   const [isRecording, setIsRecording] = useState(false);
   const [transcript, setTranscript] = useState("");
+  const speechRecognizerRef = useRef<SpeechRecognizer | null>(null);
+
+  useEffect(() => {
+    // Cleanup function to unsubscribe and stop recognition when component unmounts or recording stops
+    return () => {
+      if (speechRecognizerRef.current) {
+        speechRecognizerRef.current.stopContinuousRecognitionAsync();
+        speechRecognizerRef.current.close();
+        speechRecognizerRef.current = null;
+      }
+    };
+  }, []);
 
   const startRecording = () => {
-    // Configs, use auth token
     const speechConfig = SpeechConfig.fromAuthorizationToken(
       speechOptions.speechKey,
       speechOptions.speechRegion
     );
     const audioConfig = AudioConfig.fromDefaultMicrophoneInput();
-    const speechRecognizer = new SpeechRecognizer(speechConfig, audioConfig);
+    const recognizer = new SpeechRecognizer(speechConfig, audioConfig);
 
-    // Subscribe to events
-    speechRecognizer.recognized = (s, e) => {
-      if (e.result.reason == ResultReason.RecognizedSpeech) {
-        setTranscript((prev) => prev + " " + e.result.text);
+    recognizer.recognized = (s, e) => {
+      if (e.result.reason === ResultReason.RecognizedSpeech) {
+        setTranscript((prevTranscript) => `${prevTranscript} ${e.result.text}`);
       }
     };
 
-    // Start recognition
-    speechRecognizer.startContinuousRecognitionAsync();
-
-    // UI handlers
-    setSpeechRecognizer(speechRecognizer);
+    recognizer.startContinuousRecognitionAsync();
+    speechRecognizerRef.current = recognizer;
     setIsRecording(true);
   };
 
   const stopRecording = () => {
-    if (speechRecognizer) {
+    if (speechRecognizerRef.current) {
+      speechRecognizerRef.current.stopContinuousRecognitionAsync();
       setIsRecording(false);
-
-      // Stop recognition
-      speechRecognizer.stopContinuousRecognitionAsync();
     }
   };
 
-  const clearTranscript = () => {
-    setTranscript("");
-  };
+  const clearTranscript = () => setTranscript("");
 
   return (
     <div className="w-full px-10 py-5">
