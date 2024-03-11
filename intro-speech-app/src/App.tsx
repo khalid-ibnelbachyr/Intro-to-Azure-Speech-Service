@@ -23,8 +23,8 @@ const AppBasic = () => {
 // The proper setup
 const App = () => {
   const [speechOptions, setSpeechOptions] = useState<SpeechOptions>({
-    speechKey: "",
-    speechRegion: "",
+    speechKey: "f39e9f03705a4a4ebf61e18d723430d4",
+    speechRegion: "francecentral",
   });
 
   useEffect(() => {
