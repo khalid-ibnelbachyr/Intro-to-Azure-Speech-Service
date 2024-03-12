@@ -29,7 +29,7 @@ export default function TextToSpeech({ speechOptions }: TextToSpeechProps) {
     );
     // Set the language and voice for speech synthesis
     speechConfig.speechSynthesisLanguage = "fr-FR"; // Set language to French
-    speechConfig.speechSynthesisVoiceName = "fr-FR-JosephineNeural"; // Set voice
+    speechConfig.speechSynthesisVoiceName = "fr-FR-JeromeNeural"; // Set voice
 
     // Set up the audio output to default speaker
     const audioConfig = AudioConfig.fromDefaultSpeakerOutput();
