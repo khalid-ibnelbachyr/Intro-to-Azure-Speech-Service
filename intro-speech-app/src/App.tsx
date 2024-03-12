@@ -24,7 +24,7 @@ const AppBasic = () => {
   return (
     <main className="flex min-h-screen w-full flex-col items-center justify-between px-4 py-24 mx-auto prose">
       {/* Assuming logo.png is in the public folder or an external URL */}
-      <img src="crayon-group-logo-vector.svg" alt="Logo" className="mb-4" />
+      <img src="Crayon_Logo.jpg" alt="Logo" className="mb-4" />
       <h1 className="text-center">Speech Service</h1>
       <SpeechToTextBasic />
       <TextToSpeechBasic />
